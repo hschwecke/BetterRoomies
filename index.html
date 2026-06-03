@@ -1,3 +1,289 @@
+
+Roommate app
+/
+Claude finished the response
+Alright I want to take concrete steps now and launch everything ASAP what shall I do
+
+11:11
+
+Reading frontend design skill
+Reading frontend design skill
+Let me give you a concrete action plan. Given where things stand — concept validated, no stack decided yet — here's the fastest path to a real launch:
+
+The honest answer: build a validation landing page first, then the MVP.
+
+Trying to build everything at once is how projects stall for months. The fastest path to "launched" is a two-phase sprint:
+
+Phase 1 — This week: Validation landing page (1–3 days) The goal is to collect real waitlist signups from your target cities before writing a single line of app code. This tells you if demand is real and where it's concentrated.
+
+What it needs: hero with the core value prop, a short "how it works" section, a city selector (to measure where demand actually is), and an email capture. That's it.
+
+Phase 2 — Next 2–4 weeks: Core swipe MVP Once you have signups, build the minimum product: profile creation, the swipe UI, and a match + chat flow. No AI scoring, no video profiles yet — just the core loop working end-to-end.
+
+Stack recommendation: React + Supabase. React web first (faster to iterate than React Native, works on mobile browsers), Supabase for auth + database + real-time chat out of the box. You can wrap it in a PWA for a near-native feel without the App Store delay.
+
+Want me to build the landing page right now? I can generate a full, production-ready HTML page with email capture that you could deploy to Vercel or Netlify in minutes — and we can use it to start collecting signups while you build the MVP in parallel.
+
+Or if you'd rather jump straight to the swipe UI scaffold, I can start there. Which feels more urgent to you?
+
+be more precise concrete steps launch ASAP
+
+11:12
+Let me cut straight to it. Here's your exact launch sequence:
+
+TODAY (next 2 hours)
+
+Go to vercel.com → create free account
+Go to supabase.com → create free project, create a table called waitlist with columns: id, email, city, created_at
+I build your landing page right now → you paste it into a GitHub repo → connect to Vercel → live in minutes
+THIS WEEK
+
+Share the link in 3 Facebook/WhatsApp student groups in your target city
+Hit 100 signups before writing any app code
+WEEK 2–3
+
+I scaffold the full swipe MVP (React + Supabase) — profile creation, swipe UI, match + chat
+You deploy it and invite your waitlist
+The only decision blocking step 3 is: which city are you launching in first?
+
+Tell me that + your app name (or a working title), and I'll build the landing page for you right now.
+
+Screenshot 2026-06-03 at 13.39.01.png
+13:39
+Select "I'm working on personal projects" → Hobby (it's free). You don't need Pro right now.
+
+Then:
+
+Enter any team name → hit Continue
+You'll land on your Vercel dashboard
+Next: go to github.com and create a free account / log in — Vercel deploys directly from GitHub, so you need that linked.
+
+Tell me once you're on your Vercel dashboard, and also:
+
+What's the app name? (even a working title)
+Which city are you targeting first?
+I'll have the landing page code ready to drop in the moment you answer those two.
+
+Alright vercel and github connected: Appname: BetterRoomies. Lets not be restricted with cities or do you think that is important
+
+13:46
+Good progress. On the city question — don't restrict it for the landing page, but do ask users which city they're in during signup. That data is gold: it tells you where to focus first and which city hits critical mass fastest.
+
+Now, two quick questions before I build:
+
+Q: Who is the primary target audience?
+A: Both equally
+
+Q: What's the core vibe you want for the landing page?
+A: Clean & trustworthy (safe, modern)
+
+13:47
+Perfect. Building it now.
+
+
+Ran 2 commands, read a file
+Ran 2 commands, read a file
+Your landing page is ready. Here's exactly how to get it live in the next 15 minutes:
+
+Deploy to Vercel right now:
+
+Go to github.com/new → create a repo called betterroomies
+Upload the index.html file you just downloaded
+Go to your Vercel dashboard → Add New Project → import that GitHub repo
+Hit Deploy — done, it's live
+Then connect real signups (takes 10 min):
+
+Go to supabase.com → New project
+Create a table called waitlist with columns: name (text), email (text), city (text), created_at (timestamp, default now)
+Tell me your Supabase project URL and anon key — I'll add the 4 lines of code that wire the form up to actually save signups
+Once it's live, share the link in student Facebook groups, Reddit (r/yourcity), and WhatsApp flat-hunting groups. Every signup tells you where demand is.
+
+
+Index
+Code · HTML 
+be more precise with the instructions
+
+13:57
+Here's the exact step-by-step. Follow in order:
+
+STEP 1 — Create GitHub repo (2 min)
+
+Go to github.com/new
+Repository name: betterroomies
+Set to Public
+Check ✅ "Add a README file"
+Click Create repository
+Click Add file → Upload files
+Drag in the index.html you downloaded
+Click Commit changes
+STEP 2 — Deploy on Vercel (2 min)
+
+Go to vercel.com/dashboard
+Click Add New → Project
+Find betterroomies in the list → click Import
+Leave all settings as default
+Click Deploy
+Wait ~30 seconds → click Visit — your site is live
+STEP 3 — Get a free domain (optional, 2 min)
+
+In Vercel, go to your project → Settings → Domains
+Type betterroomies.vercel.app — it's yours for free
+Or buy betterroomies.com on namecheap.com (~$10/yr) and connect it there
+STEP 4 — Connect Supabase so signups actually save (5 min)
+
+Go to supabase.com → New project (name it betterroomies)
+Once loaded, click Table Editor → New table
+Name: waitlist, turn off RLS for now
+Add columns: name (text), email (text), city (text) — id and created_at are added automatically
+Go to Project Settings → API
+Copy your Project URL and anon public key
+Send me those two values and I'll update the index.html with the 4 lines that save every signup
+Tell me when Step 2 is done so I can see the live URL, and paste the Supabase credentials for Step 4.
+
+Screenshot 2026-06-03 at 14.09.39.png
+14:09
+This is a Vercel 404 — it means the site deployed but can't find index.html. The issue is your repo structure.
+
+Fix it in 60 seconds:
+
+Go to github.com → open your betterroomies repo
+Look at the file list — do you see index.html directly there, or is it inside a folder?
+If it's inside a folder (e.g. betterroomies/index.html):
+
+Go to Vercel → your project → Settings → General
+Find Root Directory → type the folder name → Save
+Go to Deployments → click the three dots on the latest → Redeploy
+If index.html is missing entirely:
+
+Click Add file → Upload files in GitHub
+Upload the index.html file
+Click Commit changes — Vercel will auto-redeploy
+Can you share a screenshot of your GitHub repo file list? That'll tell me exactly what's wrong.
+
+Screenshot 2026-06-03 at 14.10.15.png
+it is in there like this. I renamed it to N1
+
+14:10
+That's the problem — Vercel looks specifically for index.html. You need to rename it.
+
+Fix in 30 seconds:
+
+Click on N1.html in your GitHub repo
+Click the pencil icon (Edit) in the top right of the file view
+At the very top, click on the filename field where it says N1.html and change it to index.html
+Click Commit changes → Commit changes again
+Vercel will auto-redeploy in ~30 seconds → your site will be live
+alright now it works
+
+14:13
+Great, you're live! 🎉
+
+Right now, do these 3 things to get your first signups:
+
+Share the link in Facebook groups, Reddit, WhatsApp — search for student housing groups in any city and post: "Building a Tinder-style roommate app — join the waitlist at [your-url]"
+Set up Supabase so signups actually save (right now the form shows success but saves nothing). Go to supabase.com, create a free project, and paste me your Project URL and anon public key — I'll update the HTML in 2 minutes
+What's your live URL? Share it with me so I can check it looks right
+The Supabase connection is the most urgent — every signup before that is lost.
+
+https://supabase.com/dashboard/project/uplypylponrfqjggechd
+
+14:22
+I can't access your Supabase dashboard directly — that URL requires you to be logged in.
+
+Do this instead — takes 1 minute:
+
+Go to your Supabase project dashboard
+Click Settings (gear icon, bottom left)
+Click API
+Copy and paste me these two values:
+Project URL — looks like https://uplypylponrfqjggechd.supabase.co
+anon public key — long string starting with eyJ...
+Also, have you created the waitlist table yet? If not:
+
+Click Table Editor in the left sidebar
+Click New table
+Name it waitlist, disable RLS
+Add columns: name (text), email (text), city (text)
+Click Save
+Paste me those two API values and I'll send you the updated index.html immediately.
+
+Screenshot 2026-06-03 at 14.23.00.png
+be more precise
+
+14:23
+Do these two things in order:
+
+1. Create the table — click "Table Editor" → "New table"
+
+Name: waitlist
+Disable the "Enable Row Level Security (RLS)" toggle
+Add 3 columns: name (text), email (text), city (text)
+Click Save
+2. Get your API keys — click "Project Settings" → "API"
+
+Copy the Project URL (looks like https://uplypylponrfqjggechd.supabase.co)
+Copy the anon public key (long string starting with eyJ...)
+Paste both here
+That's it — I'll do the rest.
+
+Screenshot 2026-06-03 at 14.28.55.png
+how do I continue from here
+
+14:29
+Table is set up perfectly. Now get the API keys:
+
+Click Project Settings (gear icon, bottom of left sidebar)
+Click API
+You'll see two things — paste them both here:
+Project URL (https://uplypylponrfqjggechd.supabase.co)
+anon public key (starts with eyJ...)
+https://uplypylponrfqjggechd.supabase.co/rest/v1/
+
+14:30
+I need just two specific values. From that same API page, copy and paste me:
+
+Project URL — just this: https://uplypylponrfqjggechd.supabase.co
+anon public key — the long string starting with eyJ... (should be several hundred characters long)
+The anon key is the part I'm missing. Scroll down on the API settings page — it's labeled "anon public" under the "Project API keys" section.
+
+Screenshot 2026-06-03 at 14.31.05.png
+14:31
+You're in the wrong section. Do this:
+
+Click Project Settings (the gear icon ⚙️ at the very bottom of the left sidebar)
+Click API in the menu that appears
+You'll see Project URL and Project API keys — copy the anon public key and paste it here
+sb_publishable_v3uwaTDrvTi0rvCaxvxhBg_r3uK4Nbn
+
+14:32
+Got everything I need. Building the updated file now.
+
+
+Ran 2 commands, read a file
+Ran 2 commands, read a file
+Done. Now deploy it:
+
+Go to your GitHub repo betterroomies
+Click on index.html → click the pencil icon to edit
+Select all the text, delete it, paste in the new file contents
+Click Commit changes
+Vercel auto-deploys in ~30 seconds
+Every signup will now appear live in your Supabase Table Editor → waitlist table. Test it yourself first by signing up on your own site — then check Supabase to confirm the row appears.
+
+
+Index
+Code · HTML 
+
+
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+
+
+raw
+Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +295,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
     --cream: #F9F7F2;
     --ink: #1A1A1A;
@@ -23,465 +308,65 @@
     --white: #FFFFFF;
     --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(249,247,242,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .nav-logo {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.35rem;
-    color: var(--ink);
-    text-decoration: none;
-    letter-spacing: -0.01em;
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(249,247,242,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: 'Instrument Serif', serif; font-size: 1.35rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
   .nav-logo span { color: var(--accent); }
-
-  .nav-cta {
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 100px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-  }
-
+  .nav-cta { background: var(--accent); color: white; border: none; padding: 8px 20px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; }
   .nav-cta:hover { background: #1e4433; transform: translateY(-1px); }
-
-  /* HERO */
-  .hero {
-    padding: 140px 2rem 100px;
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent-light);
-    color: var(--accent);
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 100px;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .hero-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(2.6rem, 4.5vw, 3.6rem);
-    line-height: 1.12;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    margin-bottom: 1.25rem;
-  }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .hero-sub {
-    font-size: 1.05rem;
-    color: var(--ink-muted);
-    line-height: 1.7;
-    margin-bottom: 2rem;
-    max-width: 420px;
-  }
-
-  /* WAITLIST FORM */
-  .waitlist-form {
-    background: var(--white);
-    border: 1px solid var(--border-strong);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: var(--card-shadow);
-  }
-
-  .waitlist-form h3 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.4rem;
-    margin-bottom: 0.35rem;
-    letter-spacing: -0.01em;
-  }
-
-  .waitlist-form p {
-    font-size: 0.875rem;
-    color: var(--ink-muted);
-    margin-bottom: 1.5rem;
-  }
-
-  .form-field {
-    margin-bottom: 1rem;
-  }
-
-  .form-field label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--ink-muted);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .form-field input,
-  .form-field select {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1px solid var(--border-strong);
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9375rem;
-    color: var(--ink);
-    background: var(--cream);
-    transition: border-color 0.15s, box-shadow 0.15s;
-    outline: none;
-    appearance: none;
-  }
-
-  .form-field input:focus,
-  .form-field select:focus {
-    border-color: var(--accent-mid);
-    box-shadow: 0 0 0 3px rgba(42,92,69,0.1);
-    background: white;
-  }
-
-  .form-field select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 36px;
-    cursor: pointer;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-  }
-
-  .submit-btn {
-    width: 100%;
-    margin-top: 1.25rem;
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 13px 24px;
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    letter-spacing: -0.01em;
-  }
-
+  .hero { padding: 140px 2rem 100px; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-light); color: var(--accent); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 1.5rem; }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+  .hero-title { font-family: 'Instrument Serif', serif; font-size: clamp(2.6rem, 4.5vw, 3.6rem); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1.25rem; }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 2rem; max-width: 420px; }
+  .waitlist-form { background: var(--white); border: 1px solid var(--border-strong); border-radius: 20px; padding: 2rem; box-shadow: var(--card-shadow); }
+  .waitlist-form h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; margin-bottom: 0.35rem; letter-spacing: -0.01em; }
+  .waitlist-form p { font-size: 0.875rem; color: var(--ink-muted); margin-bottom: 1.5rem; }
+  .form-field { margin-bottom: 1rem; }
+  .form-field label { display: block; font-size: 0.8rem; font-weight: 500; color: var(--ink-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .form-field input, .form-field select { width: 100%; padding: 11px 14px; border: 1px solid var(--border-strong); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9375rem; color: var(--ink); background: var(--cream); transition: border-color 0.15s, box-shadow 0.15s; outline: none; appearance: none; }
+  .form-field input:focus, .form-field select:focus { border-color: var(--accent-mid); box-shadow: 0 0 0 3px rgba(42,92,69,0.1); background: white; }
+  .form-field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .submit-btn { width: 100%; margin-top: 1.25rem; background: var(--accent); color: white; border: none; padding: 13px 24px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; letter-spacing: -0.01em; }
   .submit-btn:hover { background: #1e4433; transform: translateY(-1px); }
-  .submit-btn:active { transform: translateY(0); }
-
-  .form-privacy {
-    font-size: 0.75rem;
-    color: var(--ink-faint);
-    text-align: center;
-    margin-top: 0.875rem;
-  }
-
-  /* SUCCESS STATE */
-  .success-state {
-    display: none;
-    text-align: center;
-    padding: 1rem 0;
-  }
-
-  .success-icon {
-    width: 52px; height: 52px;
-    background: var(--accent-light);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-    font-size: 1.3rem;
-  }
-
-  .success-state h3 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .success-state p {
-    font-size: 0.875rem;
-    color: var(--ink-muted);
-  }
-
-  /* TRUST BAR */
-  .trust-bar {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 1.25rem 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-  }
-
-  .trust-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.875rem;
-    color: var(--ink-muted);
-    font-weight: 400;
-  }
-
-  .trust-dot {
-    width: 7px; height: 7px;
-    background: var(--accent);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* HOW IT WORKS */
-  .section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 90px 2rem;
-  }
-
-  .section-label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-
-  .section-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
-  }
-
-  .section-sub {
-    font-size: 1rem;
-    color: var(--ink-muted);
-    max-width: 520px;
-    line-height: 1.7;
-    margin-bottom: 3rem;
-  }
-
-  .steps-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .step-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.75rem;
-    position: relative;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .step-card:hover {
-    border-color: var(--accent-mid);
-    transform: translateY(-3px);
-    box-shadow: var(--card-shadow);
-  }
-
-  .step-number {
-    font-family: 'Instrument Serif', serif;
-    font-size: 2.5rem;
-    color: var(--accent-light);
-    line-height: 1;
-    margin-bottom: 1rem;
-    -webkit-text-stroke: 1.5px var(--accent);
-    color: transparent;
-  }
-
-  .step-icon {
-    width: 40px; height: 40px;
-    background: var(--accent-light);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.25rem;
-    font-size: 1.1rem;
-  }
-
-  .step-card h4 {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
-  }
-
-  .step-card p {
-    font-size: 0.875rem;
-    color: var(--ink-muted);
-    line-height: 1.6;
-  }
-
-  /* WHY SECTION */
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
-
-  .why-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.75rem;
-    display: flex;
-    gap: 1.25rem;
-    align-items: flex-start;
-    transition: border-color 0.2s;
-  }
-
+  .submit-btn:disabled { background: var(--ink-faint); cursor: not-allowed; transform: none; }
+  .form-privacy { font-size: 0.75rem; color: var(--ink-faint); text-align: center; margin-top: 0.875rem; }
+  .error-msg { font-size: 0.8rem; color: #c0392b; margin-top: 0.5rem; display: none; }
+  .success-state { display: none; text-align: center; padding: 1rem 0; }
+  .success-icon { width: 52px; height: 52px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.3rem; }
+  .success-state h3 { font-family: 'Instrument Serif', serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+  .success-state p { font-size: 0.875rem; color: var(--ink-muted); }
+  .trust-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.25rem 2rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--ink-muted); }
+  .trust-dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+  .section { max-width: 1100px; margin: 0 auto; padding: 90px 2rem; }
+  .section-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .section-title { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.75rem; }
+  .section-sub { font-size: 1rem; color: var(--ink-muted); max-width: 520px; line-height: 1.7; margin-bottom: 3rem; }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .step-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; transition: border-color 0.2s, transform 0.2s; }
+  .step-card:hover { border-color: var(--accent-mid); transform: translateY(-3px); box-shadow: var(--card-shadow); }
+  .step-number { font-family: 'Instrument Serif', serif; font-size: 2.5rem; line-height: 1; margin-bottom: 1rem; -webkit-text-stroke: 1.5px var(--accent); color: transparent; }
+  .step-card h4 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .step-card p { font-size: 0.875rem; color: var(--ink-muted); line-height: 1.6; }
+  .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .why-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; display: flex; gap: 1.25rem; align-items: flex-start; transition: border-color 0.2s; }
   .why-card:hover { border-color: var(--accent-mid); }
-
-  .why-icon {
-    width: 44px; height: 44px;
-    background: var(--accent-light);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 1.2rem;
-  }
-
-  .why-card h4 {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    margin-bottom: 0.375rem;
-    letter-spacing: -0.01em;
-  }
-
-  .why-card p {
-    font-size: 0.8375rem;
-    color: var(--ink-muted);
-    line-height: 1.6;
-  }
-
-  /* FINAL CTA */
-  .final-cta {
-    background: var(--accent);
-    margin: 0 2rem 80px;
-    border-radius: 24px;
-    padding: 64px 48px;
-    text-align: center;
-    max-width: 1060px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 80px;
-  }
-
-  .final-cta h2 {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    color: white;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.75rem;
-  }
-
-  .final-cta p {
-    color: rgba(255,255,255,0.72);
-    font-size: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .final-cta-btn {
-    background: white;
-    color: var(--accent);
-    border: none;
-    padding: 14px 32px;
-    border-radius: 100px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-    letter-spacing: -0.01em;
-  }
-
-  .final-cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 1.75rem 2rem;
-    text-align: center;
-  }
-
-  footer p {
-    font-size: 0.8125rem;
-    color: var(--ink-faint);
-  }
-
-  /* RESPONSIVE */
+  .why-icon { width: 44px; height: 44px; background: var(--accent-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem; }
+  .why-card h4 { font-size: 0.9375rem; font-weight: 500; margin-bottom: 0.375rem; letter-spacing: -0.01em; }
+  .why-card p { font-size: 0.8375rem; color: var(--ink-muted); line-height: 1.6; }
+  .final-cta { background: var(--accent); margin: 0 auto 80px; border-radius: 24px; padding: 64px 48px; text-align: center; max-width: 1060px; }
+  .final-cta h2 { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); color: white; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .final-cta p { color: rgba(255,255,255,0.72); font-size: 1rem; margin-bottom: 2rem; }
+  .final-cta-btn { background: white; color: var(--accent); border: none; padding: 14px 32px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+  .final-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  footer { border-top: 1px solid var(--border); padding: 1.75rem 2rem; text-align: center; }
+  footer p { font-size: 0.8125rem; color: var(--ink-faint); }
   @media (max-width: 768px) {
-    .hero {
-      grid-template-columns: 1fr;
-      padding: 110px 1.5rem 60px;
-      gap: 40px;
-    }
+    .hero { grid-template-columns: 1fr; padding: 110px 1.5rem 60px; gap: 40px; }
     .steps-grid { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
@@ -491,13 +376,12 @@
 </style>
 </head>
 <body>
-
+ 
 <nav>
   <a href="#" class="nav-logo">Better<span>Roomies</span></a>
   <a href="#waitlist" class="nav-cta">Join the waitlist</a>
 </nav>
-
-<!-- HERO -->
+ 
 <section class="hero">
   <div class="hero-left">
     <div class="hero-eyebrow">Now accepting early access</div>
@@ -514,24 +398,21 @@
       </div>
     </div>
   </div>
-
-  <!-- WAITLIST FORM -->
+ 
   <div id="waitlist">
     <div class="waitlist-form">
       <div id="form-content">
         <h3>Get early access</h3>
         <p>Be first to know when we launch in your city.</p>
-
         <div class="form-field">
           <label>Your name</label>
           <input type="text" id="name" placeholder="Alex Johnson" autocomplete="name">
         </div>
-
         <div class="form-field">
           <label>Email address</label>
           <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
+          <div class="error-msg" id="email-error">Please enter a valid email address.</div>
         </div>
-
         <div class="form-row">
           <div class="form-field">
             <label>I am a...</label>
@@ -547,11 +428,11 @@
             <input type="text" id="city" placeholder="Berlin, London...">
           </div>
         </div>
-
-        <button class="submit-btn" onclick="handleSubmit()">Join the waitlist →</button>
+        <div class="error-msg" id="submit-error">Something went wrong. Please try again.</div>
+        <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">Join the waitlist →</button>
         <p class="form-privacy">No spam. No ads. Just a heads-up when we launch.</p>
       </div>
-
+ 
       <div class="success-state" id="success-state">
         <div class="success-icon">✓</div>
         <h3>You're on the list!</h3>
@@ -561,21 +442,18 @@
     </div>
   </div>
 </section>
-
-<!-- TRUST BAR -->
+ 
 <div class="trust-bar">
   <div class="trust-item"><div class="trust-dot"></div>Swipe-based matching</div>
   <div class="trust-item"><div class="trust-dot"></div>Lifestyle compatibility quiz</div>
   <div class="trust-item"><div class="trust-dot"></div>Verified profiles</div>
   <div class="trust-item"><div class="trust-dot"></div>Zero spam, ever</div>
 </div>
-
-<!-- HOW IT WORKS -->
+ 
 <section class="section">
   <div class="section-label">How it works</div>
   <h2 class="section-title">Three steps to your next place</h2>
   <p class="section-sub">Finding the right roommate shouldn't feel like a gamble. BetterRoomies makes compatibility visible before you commit.</p>
-
   <div class="steps-grid">
     <div class="step-card">
       <div class="step-number">01</div>
@@ -594,13 +472,11 @@
     </div>
   </div>
 </section>
-
-<!-- WHY BETTERROOMIES -->
+ 
 <section class="section" style="padding-top:0;">
   <div class="section-label">Why BetterRoomies</div>
   <h2 class="section-title">Built for how people actually choose roommates</h2>
   <p class="section-sub">Facebook groups and Craigslist listings were never designed for this. We were.</p>
-
   <div class="why-grid">
     <div class="why-card">
       <div class="why-icon">🧠</div>
@@ -632,64 +508,74 @@
     </div>
   </div>
 </section>
-
-<!-- FINAL CTA -->
+ 
 <div class="final-cta">
   <h2>Ready to find a roommate who actually fits?</h2>
   <p>Join hundreds of people already on the waitlist.</p>
-  <button class="final-cta-btn" onclick="document.getElementById('email').focus(); document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">
-    Get early access →
-  </button>
+  <button class="final-cta-btn" onclick="document.getElementById('email').focus(); document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Get early access →</button>
 </div>
-
-<!-- FOOTER -->
+ 
 <footer>
   <p>© 2026 BetterRoomies. Made with care for people who deserve a good home.</p>
 </footer>
-
+ 
 <script>
-function handleSubmit() {
-  const email = document.getElementById('email').value.trim();
-  const name = document.getElementById('name').value.trim();
-  const city = document.getElementById('city').value.trim();
-
-  if (!email || !email.includes('@')) {
-    document.getElementById('email').style.borderColor = '#E24B4A';
-    document.getElementById('email').focus();
-    return;
+  const SUPABASE_URL = 'https://uplypylponrfqjggechd.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_v3uwaTDrvTi0rvCaxvxhBg_r3uK4Nbn';
+ 
+  async function handleSubmit() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const role = document.getElementById('role').value;
+    const city = document.getElementById('city').value.trim();
+    const btn = document.getElementById('submit-btn');
+    const emailError = document.getElementById('email-error');
+    const submitError = document.getElementById('submit-error');
+ 
+    emailError.style.display = 'none';
+    submitError.style.display = 'none';
+ 
+    if (!email || !email.includes('@')) {
+      emailError.style.display = 'block';
+      document.getElementById('email').focus();
+      return;
+    }
+ 
+    btn.disabled = true;
+    btn.textContent = 'Joining...';
+ 
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ name, email, city, role })
+      });
+ 
+      if (!res.ok) throw new Error('Failed');
+ 
+      document.getElementById('form-content').style.display = 'none';
+      document.getElementById('success-state').style.display = 'block';
+    } catch (e) {
+      submitError.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Join the waitlist →';
+    }
   }
-
-  // In production: POST to your Supabase endpoint here
-  // fetch('YOUR_SUPABASE_URL/rest/v1/waitlist', { method:'POST', headers:{...}, body: JSON.stringify({name,email,city}) })
-
-  document.getElementById('form-content').style.display = 'none';
-  document.getElementById('success-state').style.display = 'block';
-
-  // Log to console for testing
-  console.log('Waitlist signup:', { name, email, city });
-}
-
-function shareApp() {
-  if (navigator.share) {
-    navigator.share({
-      title: 'BetterRoomies',
-      text: 'Find a roommate you\'ll actually like living with',
-      url: window.location.href
-    });
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    alert('Link copied to clipboard!');
+ 
+  function shareApp() {
+    if (navigator.share) {
+      navigator.share({ title: 'BetterRoomies', text: 'Find a roommate you\'ll actually like living with', url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
   }
-}
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const el = document.querySelector(a.getAttribute('href'));
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  });
-});
 </script>
 </body>
 </html>
+ 
