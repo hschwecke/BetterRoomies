@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BetterRoomies — Create Your Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F9F7F2;
+    --ink: #1A1A1A;
+    --ink-muted: #6B6B6B;
+    --ink-faint: #B0ADA6;
+    --accent: #2A5C45;
+    --accent-light: #E8F2ED;
+    --accent-mid: #4A8C6A;
+    --border: rgba(26,26,26,0.1);
+    --border-strong: rgba(26,26,26,0.18);
+    --white: #FFFFFF;
+    --danger: #E24B4A;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+  nav { height: 56px; background: rgba(249,247,242,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: 'Instrument Serif', serif; font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-step { font-size: 0.8rem; color: var(--ink-muted); }
+
+  .progress-bar { height: 3px; background: var(--border); position: sticky; top: 56px; z-index: 99; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; }
+
+  .page { display: none; max-width: 540px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+  .page.active { display: block; }
+
+  .step-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .step-title { font-family: 'Instrument Serif', serif; font-size: 1.9rem; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .step-sub { font-size: 0.9375rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 2rem; }
+
+  /* PHOTO UPLOAD */
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .photo-slot {
+    aspect-ratio: 3/4;
+    border-radius: 14px;
+    border: 1.5px dashed var(--border-strong);
+    background: var(--white);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; position: relative; overflow: hidden;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .photo-slot:hover { border-color: var(--accent-mid); background: var(--accent-light); }
+  .photo-slot.filled { border-style: solid; border-color: var(--border); }
+  .photo-slot .plus { font-size: 24px; color: var(--ink-faint); margin-bottom: 4px; }
+  .photo-slot .slot-label { font-size: 11px; color: var(--ink-faint); }
+  .photo-slot.main .plus { font-size: 28px; }
+  .photo-slot.main .slot-label { font-size: 12px; font-weight: 500; }
+  .photo-slot img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .photo-slot input[type=file] { display: none; }
+  .photo-remove { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: rgba(0,0,0,0.5); color: white; border: none; font-size: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; display: none; }
+  .photo-slot.filled .photo-remove { display: flex; }
+  .photo-main-badge { position: absolute; bottom: 8px; left: 8px; background: var(--accent); color: white; font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 100px; }
+
+  /* FORM FIELDS */
+  .form-field { margin-bottom: 1.25rem; }
+  .form-field label { display: block; font-size: 0.8rem; font-weight: 500; color: var(--ink-muted); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .form-field input, .form-field select {
+    width: 100%; padding: 12px 14px;
+    border: 1px solid var(--border-strong); border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--ink);
+    background: var(--white); outline: none; appearance: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-field input:focus, .form-field select:focus { border-color: var(--accent-mid); box-shadow: 0 0 0 3px rgba(42,92,69,0.1); }
+  .form-field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; cursor: pointer; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* BIO FIELD */
+  .form-field textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border-strong); border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--ink); background: var(--white); outline: none; resize: none; height: 100px; line-height: 1.5; transition: border-color 0.15s, box-shadow 0.15s; }
+  .form-field textarea:focus { border-color: var(--accent-mid); box-shadow: 0 0 0 3px rgba(42,92,69,0.1); }
+  .char-count { font-size: 0.75rem; color: var(--ink-faint); text-align: right; margin-top: 4px; }
+
+  /* VIBE TAGS */
+  .tag-section { margin-bottom: 1.75rem; }
+  .tag-section-label { font-size: 0.8rem; font-weight: 500; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+  .tag-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    padding: 8px 14px; border-radius: 100px;
+    border: 1px solid var(--border-strong); background: var(--white);
+    font-size: 0.875rem; color: var(--ink); cursor: pointer;
+    transition: all 0.15s; display: flex; align-items: center; gap: 6px;
+    user-select: none;
+  }
+  .tag:hover { border-color: var(--accent-mid); background: var(--accent-light); }
+  .tag.selected { background: var(--accent); border-color: var(--accent); color: white; }
+  .tag-emoji { font-size: 1rem; }
+
+  /* HOBBIES */
+  .hobby-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+  .hobby-card {
+    border: 1px solid var(--border-strong); border-radius: 14px;
+    background: var(--white); padding: 1rem 0.75rem;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    cursor: pointer; transition: all 0.15s; text-align: center; user-select: none;
+  }
+  .hobby-card:hover { border-color: var(--accent-mid); background: var(--accent-light); }
+  .hobby-card.selected { background: var(--accent); border-color: var(--accent); }
+  .hobby-icon { font-size: 28px; }
+  .hobby-label { font-size: 0.8125rem; color: var(--ink); font-weight: 500; }
+  .hobby-card.selected .hobby-label { color: white; }
+
+  /* BOTTOM BAR */
+  .bottom-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(249,247,242,0.97); backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 100%;
+    z-index: 100;
+  }
+  .btn-back { background: none; border: 1px solid var(--border-strong); color: var(--ink-muted); padding: 11px 22px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.9375rem; cursor: pointer; transition: all 0.15s; }
+  .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+  .btn-next { background: var(--accent); color: white; border: none; padding: 11px 32px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.9375rem; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .btn-next:hover { background: #1e4433; }
+  .btn-next:disabled { background: var(--ink-faint); cursor: not-allowed; }
+
+  /* SUCCESS */
+  .success-page { display: none; max-width: 540px; margin: 0 auto; padding: 4rem 1.5rem; text-align: center; }
+  .success-page.active { display: block; }
+  .success-avatar { width: 100px; height: 100px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 48px; margin: 0 auto 1.5rem; border: 3px solid var(--accent); }
+  .success-page h2 { font-family: 'Instrument Serif', serif; font-size: 2rem; margin-bottom: 0.5rem; }
+  .success-page p { color: var(--ink-muted); margin-bottom: 2rem; font-size: 0.9375rem; line-height: 1.6; }
+  .success-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 2rem; }
+  .success-tag { padding: 6px 14px; border-radius: 100px; background: var(--accent-light); color: var(--accent); font-size: 0.8125rem; font-weight: 500; }
+  .btn-start { display: inline-block; background: var(--accent); color: white; border: none; padding: 14px 40px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+  .btn-start:hover { background: #1e4433; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Better<span>Roomies</span></a>
+  <div class="nav-step" id="nav-step">Step 1 of 4</div>
+</nav>
+<div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:25%"></div></div>
+
+<!-- STEP 1: PHOTOS -->
+<div class="page active" id="page-1">
+  <div class="step-eyebrow">Step 1 — Photos</div>
+  <h1 class="step-title">Show the real you</h1>
+  <p class="step-sub">Add up to 6 photos. Your first photo is your main profile picture.</p>
+
+  <div class="photo-grid">
+    <div class="photo-slot main" id="slot-0" onclick="triggerUpload(0)">
+      <input type="file" accept="image/*" id="file-0" onchange="handlePhoto(0, this)">
+      <div class="plus">+</div>
+      <div class="slot-label">Main photo</div>
+    </div>
+    <div class="photo-slot" id="slot-1" onclick="triggerUpload(1)">
+      <input type="file" accept="image/*" id="file-1" onchange="handlePhoto(1, this)">
+      <div class="plus">+</div>
+      <div class="slot-label">Add photo</div>
+    </div>
+    <div class="photo-slot" id="slot-2" onclick="triggerUpload(2)">
+      <input type="file" accept="image/*" id="file-2" onchange="handlePhoto(2, this)">
+      <div class="plus">+</div>
+      <div class="slot-label">Add photo</div>
+    </div>
+    <div class="photo-slot" id="slot-3" onclick="triggerUpload(3)">
+      <input type="file" accept="image/*" id="file-3" onchange="handlePhoto(3, this)">
+      <div class="plus">+</div>
+      <div class="slot-label">Add photo</div>
+    </div>
+    <div class="photo-slot" id="slot-4" onclick="triggerUpload(4)">
+      <input type="file" accept="image/*" id="file-4" onchange="handlePhoto(4, this)">
+      <div class="plus">+</div>
+      <div class="slot-label">Add photo</div>
+    </div>
+    <div class="photo-slot" id="slot-5" onclick="triggerUpload(5)">
+      <input type="file" accept="image/*" id="file-5" onchange="handlePhoto(5, this)">
+      <div class="plus">+</div>
+      <div class="slot-label">Add photo</div>
+    </div>
+  </div>
+  <p style="font-size:0.8rem;color:var(--ink-faint);">💡 Profiles with 3+ photos get 4x more matches</p>
+</div>
+
+<!-- STEP 2: BASICS -->
+<div class="page" id="page-2">
+  <div class="step-eyebrow">Step 2 — Basics</div>
+  <h1 class="step-title">The essentials</h1>
+  <p class="step-sub">Tell potential roommates who you are and what you're looking for.</p>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label>First name</label>
+      <input type="text" id="f-name" placeholder="Alex" autocomplete="given-name">
+    </div>
+    <div class="form-field">
+      <label>Age</label>
+      <input type="number" id="f-age" placeholder="24" min="18" max="60">
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label>City</label>
+    <input type="text" id="f-city" placeholder="Berlin, London, Amsterdam...">
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label>I am a...</label>
+      <select id="f-role">
+        <option value="">Select...</option>
+        <option value="student">Student</option>
+        <option value="professional">Young professional</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label>Budget / month</label>
+      <select id="f-budget">
+        <option value="">Select...</option>
+        <option value="under500">Under €500</option>
+        <option value="500-800">€500 – €800</option>
+        <option value="800-1200">€800 – €1,200</option>
+        <option value="1200+">€1,200+</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label>About you</label>
+    <textarea id="f-bio" placeholder="What should a potential roommate know about you? Your routine, what you love, what you can't stand..." maxlength="200" oninput="updateCharCount(this, 'bio-count', 200)"></textarea>
+    <div class="char-count"><span id="bio-count">0</span>/200</div>
+  </div>
+</div>
+
+<!-- STEP 3: LIFESTYLE VIBES -->
+<div class="page" id="page-3">
+  <div class="step-eyebrow">Step 3 — Lifestyle</div>
+  <h1 class="step-title">Your vibe</h1>
+  <p class="step-sub">Pick all the tags that feel like you. This is how we match you with compatible roommates.</p>
+
+  <div class="tag-section">
+    <div class="tag-section-label">🌙 Sleep & energy</div>
+    <div class="tag-grid" id="tags-sleep">
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🌙</span> Night owl</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🌅</span> Early bird</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">😴</span> Love a lie-in</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">⚡</span> High energy</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🧘</span> Chill & calm</div>
+    </div>
+  </div>
+
+  <div class="tag-section">
+    <div class="tag-section-label">🏠 At home</div>
+    <div class="tag-grid" id="tags-home">
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">✨</span> Very tidy</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🧹</span> Reasonably clean</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">😅</span> Organised chaos</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🍳</span> Home cook</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🛵</span> Delivery addict</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🤫</span> Quiet household</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🎉</span> Love having guests</div>
+    </div>
+  </div>
+
+  <div class="tag-section">
+    <div class="tag-section-label">👥 Social style</div>
+    <div class="tag-grid" id="tags-social">
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🦋</span> Social butterfly</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">📚</span> Introvert at heart</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🤝</span> Happy to hang</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🚶</span> Keep to myself</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🐾</span> Pet parent</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🚭</span> Non-smoker</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🍷</span> Social drinker</div>
+    </div>
+  </div>
+
+  <div class="tag-section">
+    <div class="tag-section-label">💼 Lifestyle</div>
+    <div class="tag-grid" id="tags-life">
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🏋️</span> Gym regular</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🌱</span> Plant-based</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">💻</span> Work from home</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🌍</span> Eco-conscious</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">🎓</span> Student life</div>
+      <div class="tag" onclick="toggleTag(this)"><span class="tag-emoji">✈️</span> Always travelling</div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4: HOBBIES -->
+<div class="page" id="page-4">
+  <div class="step-eyebrow">Step 4 — Hobbies</div>
+  <h1 class="step-title">What are you into?</h1>
+  <p class="step-sub">Pick up to 6 hobbies. Shared interests make for great conversations.</p>
+
+  <div class="hobby-grid" id="hobby-grid">
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🎵</div><div class="hobby-label">Music</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🎮</div><div class="hobby-label">Gaming</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">📚</div><div class="hobby-label">Reading</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🎨</div><div class="hobby-label">Art</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🏃</div><div class="hobby-label">Running</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🧗</div><div class="hobby-label">Climbing</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🍜</div><div class="hobby-label">Cooking</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🎬</div><div class="hobby-label">Films</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🏊</div><div class="hobby-label">Swimming</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🚴</div><div class="hobby-label">Cycling</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">✈️</div><div class="hobby-label">Travel</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🧘</div><div class="hobby-label">Yoga</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">📸</div><div class="hobby-label">Photography</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🎸</div><div class="hobby-label">Instruments</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🌿</div><div class="hobby-label">Nature</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🍺</div><div class="hobby-label">Nights out</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">🎭</div><div class="hobby-label">Theatre</div></div>
+    <div class="hobby-card" onclick="toggleHobby(this)"><div class="hobby-icon">⚽</div><div class="hobby-label">Football</div></div>
+  </div>
+  <p style="font-size:0.8rem;color:var(--ink-faint);margin-top:1rem;" id="hobby-count-label">0 of 6 selected</p>
+</div>
+
+<!-- SUCCESS -->
+<div class="success-page" id="page-success">
+  <div class="success-avatar" id="success-avatar">😊</div>
+  <h2>You're all set, <span id="success-name">there</span>!</h2>
+  <p>Your profile is live. Time to find your perfect roommate.</p>
+  <div class="success-tags" id="success-tags"></div>
+  <a href="app.html" class="btn-start">Start swiping →</a>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar" id="bottom-bar">
+  <button class="btn-back" id="btn-back" onclick="goBack()" style="visibility:hidden">Back</button>
+  <button class="btn-next" id="btn-next" onclick="goNext()">Continue →</button>
+</div>
+
+<script>
+let currentStep = 1;
+const totalSteps = 4;
+let selectedHobbies = 0;
+
+function updateProgress() {
+  const pct = (currentStep / totalSteps) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('nav-step').textContent = `Step ${currentStep} of ${totalSteps}`;
+  document.getElementById('btn-back').style.visibility = currentStep > 1 ? 'visible' : 'hidden';
+  document.getElementById('btn-next').textContent = currentStep === totalSteps ? 'Finish →' : 'Continue →';
+}
+
+function goNext() {
+  if (currentStep < totalSteps) {
+    document.getElementById('page-' + currentStep).classList.remove('active');
+    currentStep++;
+    document.getElementById('page-' + currentStep).classList.add('active');
+    updateProgress();
+    window.scrollTo(0, 0);
+  } else {
+    finishOnboarding();
+  }
+}
+
+function goBack() {
+  if (currentStep > 1) {
+    document.getElementById('page-' + currentStep).classList.remove('active');
+    currentStep--;
+    document.getElementById('page-' + currentStep).classList.add('active');
+    updateProgress();
+    window.scrollTo(0, 0);
+  }
+}
+
+function finishOnboarding() {
+  document.getElementById('page-' + currentStep).classList.remove('active');
+  document.getElementById('bottom-bar').style.display = 'none';
+  document.getElementById('progress-fill').style.width = '100%';
+
+  const name = document.getElementById('f-name').value || 'there';
+  document.getElementById('success-name').textContent = name;
+
+  const selected = document.querySelectorAll('.tag.selected');
+  const tagsEl = document.getElementById('success-tags');
+  tagsEl.innerHTML = '';
+  selected.forEach(t => {
+    const span = document.createElement('div');
+    span.className = 'success-tag';
+    span.textContent = t.textContent.trim();
+    tagsEl.appendChild(span);
+  });
+
+  document.getElementById('page-success').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function triggerUpload(idx) {
+  document.getElementById('file-' + idx).click();
+}
+
+function handlePhoto(idx, input) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const slot = document.getElementById('slot-' + idx);
+    slot.classList.add('filled');
+    const existing = slot.querySelector('img');
+    if (existing) existing.remove();
+    const img = document.createElement('img');
+    img.src = e.target.result;
+    slot.insertBefore(img, slot.firstChild);
+    const plus = slot.querySelector('.plus');
+    const label = slot.querySelector('.slot-label');
+    if (plus) plus.style.display = 'none';
+    if (label) label.style.display = 'none';
+    if (idx === 0) {
+      let badge = slot.querySelector('.photo-main-badge');
+      if (!badge) { badge = document.createElement('div'); badge.className = 'photo-main-badge'; badge.textContent = 'Main'; slot.appendChild(badge); }
+    }
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function toggleTag(el) {
+  el.classList.toggle('selected');
+}
+
+function toggleHobby(el) {
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    selectedHobbies--;
+  } else {
+    if (selectedHobbies >= 6) return;
+    el.classList.add('selected');
+    selectedHobbies++;
+  }
+  document.getElementById('hobby-count-label').textContent = selectedHobbies + ' of 6 selected';
+}
+
+function updateCharCount(el, countId, max) {
+  document.getElementById(countId).textContent = el.value.length;
+}
+
+updateProgress();
+</script>
+</body>
+</html>
