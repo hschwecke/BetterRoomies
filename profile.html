@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BetterRoomies — My Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F9F7F2; --ink: #1A1A1A; --ink-muted: #6B6B6B; --ink-faint: #B0ADA6;
+    --accent: #2A5C45; --accent-light: #E8F2ED; --accent-mid: #4A8C6A;
+    --border: rgba(26,26,26,0.1); --border-strong: rgba(26,26,26,0.18); --white: #FFFFFF;
+  }
+  html, body { height: 100%; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
+
+  nav { height: 56px; background: rgba(249,247,242,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; flex-shrink: 0; }
+  .nav-logo { font-family: 'Instrument Serif', serif; font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-edit { font-size: 0.875rem; font-weight: 500; color: var(--accent); cursor: pointer; }
+
+  .main { flex: 1; overflow-y: auto; padding-bottom: 80px; }
+
+  /* PROFILE HEADER */
+  .profile-header { padding: 2rem 1.5rem 1.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; border-bottom: 1px solid var(--border); }
+  .avatar-wrap { position: relative; margin-bottom: 1rem; }
+  .avatar { width: 96px; height: 96px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 48px; border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--accent); }
+  .avatar-edit { position: absolute; bottom: 2px; right: 2px; width: 28px; height: 28px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; border: 2px solid var(--white); }
+  .profile-name { font-family: 'Instrument Serif', serif; font-size: 1.75rem; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .profile-meta { font-size: 0.875rem; color: var(--ink-muted); margin-bottom: 1rem; }
+  .profile-bio { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.6; max-width: 320px; margin-bottom: 1.25rem; }
+
+  .profile-stats { display: flex; gap: 2rem; }
+  .stat { text-align: center; }
+  .stat-number { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--ink); }
+  .stat-label { font-size: 0.75rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* COMPLETION BAR */
+  .completion-card { margin: 1.25rem 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.1rem 1.25rem; }
+  .completion-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .completion-label { font-size: 0.875rem; font-weight: 500; }
+  .completion-pct { font-size: 0.875rem; color: var(--accent); font-weight: 500; }
+  .completion-bar { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; margin-bottom: 8px; }
+  .completion-fill { height: 100%; background: var(--accent); border-radius: 100px; width: 72%; transition: width 0.5s ease; }
+  .completion-tip { font-size: 0.8rem; color: var(--ink-muted); }
+  .completion-tip span { color: var(--accent); cursor: pointer; font-weight: 500; }
+
+  /* SECTIONS */
+  .section { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .section-title { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-muted); }
+  .section-edit { font-size: 0.8rem; color: var(--accent); cursor: pointer; font-weight: 500; }
+
+  /* PHOTOS STRIP */
+  .photos-strip { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+  .photos-strip::-webkit-scrollbar { display: none; }
+  .photo-thumb { width: 80px; height: 100px; border-radius: 12px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; border: 1px solid var(--border); cursor: pointer; position: relative; overflow: hidden; }
+  .photo-thumb.add { border: 1.5px dashed var(--border-strong); background: var(--white); font-size: 20px; color: var(--ink-faint); }
+  .photo-main-label { position: absolute; bottom: 5px; left: 5px; background: var(--accent); color: white; font-size: 9px; font-weight: 500; padding: 2px 7px; border-radius: 100px; }
+
+  /* INFO ROWS */
+  .info-list { display: flex; flex-direction: column; gap: 0; }
+  .info-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--border); }
+  .info-row:last-child { border-bottom: none; }
+  .info-left { display: flex; align-items: center; gap: 10px; }
+  .info-icon { width: 32px; height: 32px; background: var(--accent-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .info-label { font-size: 0.8375rem; color: var(--ink-muted); }
+  .info-value { font-size: 0.8375rem; color: var(--ink); font-weight: 500; }
+
+  /* TAGS */
+  .tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { padding: 7px 13px; border-radius: 100px; border: 1px solid var(--border-strong); background: var(--white); font-size: 0.8125rem; color: var(--ink); }
+  .tag.accent { background: var(--accent-light); border-color: rgba(42,92,69,0.2); color: var(--accent); }
+
+  /* DANGER ZONE */
+  .danger-section { padding: 1.5rem; display: flex; flex-direction: column; gap: 10px; }
+  .btn-outline { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border-strong); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.9375rem; color: var(--ink-muted); cursor: pointer; font-weight: 500; transition: all 0.15s; }
+  .btn-outline:hover { border-color: var(--ink); color: var(--ink); }
+  .btn-danger { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(226,75,74,0.3); background: white; font-family: 'DM Sans', sans-serif; font-size: 0.9375rem; color: #E24B4A; cursor: pointer; font-weight: 500; transition: all 0.15s; }
+  .btn-danger:hover { background: #FFF0F0; }
+
+  /* BOTTOM NAV */
+  .bottom-nav { height: 60px; border-top: 1px solid var(--border); background: rgba(249,247,242,0.95); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; position: fixed; bottom: 0; left: 0; right: 0; }
+  .bnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; padding: 0 1rem; opacity: 0.4; transition: opacity 0.15s; text-decoration: none; }
+  .bnav-item.active { opacity: 1; }
+  .bnav-item span { font-size: 20px; }
+  .bnav-label { font-size: 10px; font-weight: 500; color: var(--ink); letter-spacing: 0.04em; }
+  .bnav-item.active .bnav-label { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="app.html" class="nav-logo">Better<span>Roomies</span></a>
+  <div class="nav-edit" onclick="goToEdit()">Edit profile</div>
+</nav>
+
+<div class="main">
+  <div class="profile-header">
+    <div class="avatar-wrap">
+      <div class="avatar">😊</div>
+      <div class="avatar-edit">📷</div>
+    </div>
+    <div class="profile-name">Alex, 24</div>
+    <div class="profile-meta">📍 Berlin · Student</div>
+    <div class="profile-bio">Coffee-dependent designer who loves cooking, hates loud mornings, and always does the dishes.</div>
+    <div class="profile-stats">
+      <div class="stat"><div class="stat-number">12</div><div class="stat-label">Likes</div></div>
+      <div class="stat"><div class="stat-number">4</div><div class="stat-label">Matches</div></div>
+      <div class="stat"><div class="stat-number">3</div><div class="stat-label">Chats</div></div>
+    </div>
+  </div>
+
+  <div class="completion-card">
+    <div class="completion-top">
+      <div class="completion-label">Profile strength</div>
+      <div class="completion-pct">72%</div>
+    </div>
+    <div class="completion-bar"><div class="completion-fill"></div></div>
+    <div class="completion-tip">Add more photos to get <span onclick="goToEdit()">4x more matches →</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Photos</div>
+      <div class="section-edit" onclick="goToEdit()">Edit</div>
+    </div>
+    <div class="photos-strip">
+      <div class="photo-thumb">😊<div class="photo-main-label">Main</div></div>
+      <div class="photo-thumb">🏖️</div>
+      <div class="photo-thumb">🎨</div>
+      <div class="photo-thumb add">+</div>
+      <div class="photo-thumb add">+</div>
+      <div class="photo-thumb add">+</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">About me</div>
+      <div class="section-edit" onclick="goToEdit()">Edit</div>
+    </div>
+    <div class="info-list">
+      <div class="info-row">
+        <div class="info-left"><div class="info-icon">🎂</div><div class="info-label">Age</div></div>
+        <div class="info-value">24</div>
+      </div>
+      <div class="info-row">
+        <div class="info-left"><div class="info-icon">📍</div><div class="info-label">City</div></div>
+        <div class="info-value">Berlin</div>
+      </div>
+      <div class="info-row">
+        <div class="info-left"><div class="info-icon">🎓</div><div class="info-label">I am a</div></div>
+        <div class="info-value">Student</div>
+      </div>
+      <div class="info-row">
+        <div class="info-left"><div class="info-icon">💶</div><div class="info-label">Budget</div></div>
+        <div class="info-value">€700 – €900 / mo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">My vibe</div>
+      <div class="section-edit" onclick="goToEdit()">Edit</div>
+    </div>
+    <div class="tag-wrap">
+      <div class="tag accent">🌙 Night owl</div>
+      <div class="tag accent">✨ Very tidy</div>
+      <div class="tag accent">🤫 Quiet household</div>
+      <div class="tag accent">💻 Work from home</div>
+      <div class="tag accent">🍳 Home cook</div>
+      <div class="tag accent">📚 Introvert at heart</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Hobbies</div>
+      <div class="section-edit" onclick="goToEdit()">Edit</div>
+    </div>
+    <div class="tag-wrap">
+      <div class="tag">🎨 Art</div>
+      <div class="tag">🍜 Cooking</div>
+      <div class="tag">📚 Reading</div>
+      <div class="tag">🚴 Cycling</div>
+      <div class="tag">🎬 Films</div>
+      <div class="tag">📸 Photography</div>
+    </div>
+  </div>
+
+  <div class="danger-section">
+    <button class="btn-outline" onclick="alert('Settings coming soon')">⚙️ Settings</button>
+    <button class="btn-outline" onclick="alert('You have been logged out')">👋 Log out</button>
+    <button class="btn-danger" onclick="confirm('Are you sure? This cannot be undone.') && alert('Account deleted')">Delete account</button>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="app.html" class="bnav-item"><span>🏠</span><div class="bnav-label">Discover</div></a>
+  <a href="matches.html" class="bnav-item"><span>❤️</span><div class="bnav-label">Matches</div></div></a>
+  <a href="chat.html" class="bnav-item"><span>💬</span><div class="bnav-label">Messages</div></a>
+  <a href="profile.html" class="bnav-item active"><span>👤</span><div class="bnav-label">Profile</div></a>
+</div>
+
+<script>
+function goToEdit() { window.location.href = 'onboarding.html'; }
+</script>
+</body>
+</html>
